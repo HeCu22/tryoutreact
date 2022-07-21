@@ -1,38 +1,285 @@
-.App {
-  text-align: center;
+* {
+    box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+/*////////////////////////
+    Table of Contents
+    1. Global Styles
+    2. Typography
+    3. Layout
+        Reusables
+        Other
+    4. Areas
+        Header
+        Introduction
+        JokeList
+        Button search
+        Button next
+        Footer
+    5. Media Queries
+////////////////////////*/
+
+/* ------------------------------- 1. Global Styles -------------------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    background-color: #d2c7a4;
 }
 
-.App-link {
-  color: #61dafb;
+/* ------------------------------- 2. Typography ----------------------------------- */
+
+/* ------------------------------- Layout ----------------------------------- */
+/* ------------------------------- Reusables -------------------------------- */
+
+/* De buitenste container is altijd de volledige schermbreedte. Het is een flexbox container die zijn inhoud altijd netjes horizontaal centreert */
+.outer-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.outer-col {
+
+    display: flex;
+    flex-direction: column;
+}
+
+/*De binnenste container is maximaal 1400px breed, zodat het er ook goed uitziet op brede schermen.
+Hij mag krimpen als het scherm minder breed wordt, maar niet groeien als er meer ruimte is.*/
+.inner-col {
+    flex-basis: 1400px;
+    flex-shrink: 1;
+    flex-grow: 0;
+    /*We voegen margin toe aan de linker- en rechterkant, zodat de content nooit helemaal tegen de rand gedrukt kan worden*/
+    margin: 0 20px;
+    /*We zorgen er ook voor dat deze flex-item op haar beurt ook weer een flexbox container is, waarin alle children onder elkaar komen te staan*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* inner and outer container */
+.outer-row {
+    background-color: #E7CeBA;
+}
+
+
+/*We gebruiken hier geen flex-basis property, omdat dit element soms in een parent met column-richting en soms in een parent met row-richting kan staan.
+In een column gaat flex-basis over de hoogte, niet de breedte. Dus om dan alsnog de breedte te veranderen, hebben we max-width (nooit groter dan dit) property nodig */
+.default-text-restrictor {
+    max-width: 850px;
+    text-align: center;
+}
+
+.default-area-padding {
+    padding: 100px 0;
+    background-color: #edc480;
+}
+
+/* --------------- 3.2 Other --------------------------- */
+
+/*mobile first*/
+
+header, main, .zijkolom-1, .zijkolom-2, footer {
+    /* flex-grow flex-shrink flex-basis */
+    flex: 1 1 100%;
+}
+
+/* -------------------------------  Areas -------------------------------- */
+/* -------------------------------  Header -------------------------------- */
+header, footer {
+    background-color: #92715f;
+}
+/* ------------------------------- list -------------------------------- */
+main {
+    background-color: #c5dc8e;
+}
+
+.image-prop {
+    width: 250px;
+ }
+
+.image-wrapper {
+    flex-grow: 0;
+    flex-shrink: 1;
+}
+
+.image-wrapper img {
+    width: 100%;
+    background-color: #edc480;
+    border-radius: 4px;
+
+}
+
+/* ------------------------------- Buttons -------------------------------- */
+.zijkolom-1 {
+    background-color: #c5dc8e;
+}
+
+#on-submit {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 20px);
+}
+
+button {
+    background-color: #edc480;
+}
+
+#form-id input
+{
+    background-color: #edc480;
+    border: 1px solid #7A7A7A;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+    display: block;
+    font-size: 16px;
+    color: #7A7A7A;
+    width: 100%;
+}
+
+.zijkolom-2 {
+    background-color: darkseagreen;
+}
+.article-group, .article {
+    /*De tegel moet in de basis ...breed zijn*/
+    flex-basis: 200px;
+    /*Als er meer ruimte is, mag hij NIET groter worden*/
+    flex-grow: 0;
+    /*Als er minder ruimte is, krimpt hij 1 fractie (dus alle tegels evenveel) van de ingeleverde ruimte*/
+    flex-shrink: 0;
+    /*Deze tegel is op haar beurt weer een flexbox-container */
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 4px;
+    margin: 8px 0;
+    padding: 4px 8px;
+    width: 100%;
+    /*min-height: 200px;*/
+}
+.first-article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.article-group {
+    border: 1px solid black;
+    margin-right: 5px;
+}
+
+.tryout-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-x: auto;
+    /*margin: 100px;*/
+    /*flex-wrap: wrap;*/
+}
+
+.tryout-list::-webkit-scrollbar {display: none}
+
+
+
+
+/* ------------------------------- Media queries -------------------------------- */
+@media screen and (min-width: 300px) {
+    /*     640px */
+    .zijkolom-1, .zijkolom-2 {
+        /*     grow shrink basis */
+        flex: auto;
+    }
+}
+
+@media screen and (min-width: 40em) {
+    /*     640px */
+    .zijkolom-1, .zijkolom-2 {
+        /*     grow shrink basis */
+        flex: auto;
+    }
+}
+
+@media screen and (min-width: 48em) {
+    /*     768px */
+    main {
+        /*     grow shrink basis */
+        border-style: dotted;
+        flex: 2 1 0%;
+    }
+    /*.image-wrapper {*/
+    /*    flex-basis: auto;*/
+    /*}*/
+
+    .zijkolom-1 {
+        flex: 1 1 0%;
+    }
+
+    .zijkolom-2 {
+        flex: 1 1 100%;
+    }
+}
+
+@media screen and (min-width: 66em) {
+    /* 1024px */
+    main {
+        border: dashed 2px lightblue;
+        flex: 3 1 0%;
+    }
+
+    .zijkolom-1, .zijkolom-2 {
+        flex: 1 1 0%;
+    }
+}
+
+@media screen and (min-width: 80em) {
+    /* 1280px */
+    main {
+        border: solid 2px yellow;
+        flex: 3 1 0%;
+    }
+
+
+    .zijkolom-1 {
+        flex: 1.5;
+    }
+
+    .zijkolom-2 {
+        flex: 1;
+    }
+
+    .zijkolom-1 {
+        order: 1;
+    }
+
+    main {
+        order: 2;
+    }
+
+    .zijkolom-2 {
+        order: 3
+    }
+
+    footer {
+        order: 4
+    }
 }
